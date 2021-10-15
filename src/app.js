@@ -1,11 +1,10 @@
 const express = require('express');
+const plantRouter = require('./routes/plant');
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello World!');
-});
+app.use('/plants', plantRouter);
 
 module.exports = app;
