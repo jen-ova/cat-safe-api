@@ -1,6 +1,20 @@
 const { Plant } = require('../models');
 
 exports.create = async (req, res) => {
+  const checkPlantName = req.body.plantName;
+  const checkScientificName = req.body.scientificName;
+  const checkLink = req.body.link;
+
+  if (
+    checkPlantName == null ||
+    checkScientificName == null ||
+    checkLink == null
+  ) {
+    return res
+      .status(400)
+      .send({ error: 'Please ensure all fields are completed.' });
+  }
+
   const newPlant = await Plant.create(req.body);
   res.status(201).json(newPlant);
 };

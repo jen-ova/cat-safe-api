@@ -28,6 +28,18 @@ describe('/plants', () => {
         expect(newPlantRecord.scientificName).to.equal('Calathea lancifolia');
         expect(newPlantRecord.link).to.equal('../images/rattlesnake.jpeg');
       });
+
+      it('returns an error if a field is empty', async () => {
+        const response = await request(app).post('/plants').send({
+          plantName: 'Rattlesnake Plant',
+          scientificName: 'Calathea lancifolia',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.error).to.equal(
+          'Please ensure all fields are completed.'
+        );
+      });
     });
   });
 
